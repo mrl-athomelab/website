@@ -1,0 +1,29 @@
+{
+  "name": "athomelab",
+  "version": "1.0.0",
+  "description": "MRL @Home lab's website",
+  "main": "gulpfile.js",
+  "dependencies": {
+    "gulp": "^3.9.1",
+    "gulp-minify-css": "^1.2.4",
+    "gulp-concat": "^2.6.1",
+    "gulp-sass": "^4.0.1",
+    "gulp-uglify": "^3.0.1",
+    "shabnam-font": "^3.0.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mrl-athomelab/website.git"
+  },
+  "keywords": [],
+  "author": "Ahmadreza Zibaei",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/mrl-athomelab/website/issues"
+  },
+  "homepage": "https://github.com/mrl-athomelab/website#readme"
+}

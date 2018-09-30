@@ -1,0 +1,70 @@
+{{define "index"}}
+{{template "head" .}}
+
+<div class="mainmenu-area" data-spy="affix" data-offset-top="100">
+    <nav class="navbar fixed-top navbar-expand-lg navbar-dark p-4">
+        <div class="container">
+            <a class="navbar-brand font-jamjuree" href="#">MRL @Home</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">About Us</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Gallery</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Researchs</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Blog</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+</div>
+
+<header class="header-area full-height relative v-center" data-index="0" id="home-page">
+    <div class="overlay" id="particles-js"></div>
+    <div class="center">
+        <h5>To create <strong>Robots</strong> for Humans !</h5>
+
+        <a href="#intro" class="animated-btn pl-5 pr-5 mt-3 pt-2 pb-2">Read more !</a>
+    </div>
+</header>
+
+<div class="section-padding latest-news" id="blog">
+    <div class="container">
+        <div class="row">
+            <div class="col-6 col-sm-9">
+                <h3 class="first-title">Latest news</h3>
+            </div>
+            <div class="col-6 col-sm-3">
+                <a href="/blog" class="animated-btn btn-block">view the blog</a>
+            </div>
+        </div>
+        <div class="row mt-5 mb-3">
+            <div class="col-sm-12 mb-5">
+                {{template "news-large" .}}
+            </div>
+            <div class="col-sm-4 mb-3">
+                {{template "news-small" .}}
+            </div>
+            <div class="col-sm-4 mb-3">
+                {{template "news-small" .}}
+            </div>
+            <div class="col-sm-4 mb-3">
+                {{template "news-small" .}}
+            </div>
+        </div>
+    </div>
+</div>
+
+{{template "bottom" .}}
+{{end}}

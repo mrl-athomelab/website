@@ -1,0 +1,7 @@
+development: true
+
+listenaddr: "0.0.0.0:8081"
+secretkey: "9d7750a188f73c0d16a11bdc48c71400"
+
+templatepath: "template"
+staticpath: "static"
