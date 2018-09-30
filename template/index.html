@@ -4,7 +4,7 @@
 <div class="mainmenu-area" data-spy="affix" data-offset-top="100">
     <nav class="navbar fixed-top navbar-expand-lg navbar-dark p-4">
         <div class="container">
-            <a class="navbar-brand font-jamjuree" href="#">MRL @Home</a>
+            <a class="navbar-brand font-jamjuree" href="#">MRL@Home</a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
                 aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
@@ -32,7 +32,7 @@
 
 <header class="header-area full-height relative v-center" data-index="0" id="home-page">
     <div class="overlay" id="particles-js"></div>
-    <div class="center">
+    <div class="center font-jamjuree">
         <h5>To create <strong>Robots</strong> for Humans !</h5>
 
         <a href="#intro" class="animated-btn pl-5 pr-5 mt-3 pt-2 pb-2">Read more !</a>
@@ -41,9 +41,9 @@
 
 <div class="section-padding latest-news" id="blog">
     <div class="container">
-        <div class="row">
+        <div class="row mt-4">
             <div class="col-6 col-sm-9">
-                <h3 class="first-title">Latest news</h3>
+                <h3 class="first-title">Latest post</h3>
             </div>
             <div class="col-6 col-sm-3">
                 <a href="/blog" class="animated-btn btn-block">view the blog</a>
@@ -61,6 +61,50 @@
             </div>
             <div class="col-sm-4 mb-3">
                 {{template "news-small" .}}
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="section-padding join" id="join">
+    <div id="join-particle"></div>
+    <div class="container">
+        <div class="row">
+            <div class="col-6 col-sm-9">
+                <p class="uppercase mb-5">
+                    working at labratory
+                </p>
+            </div>
+            <div class="col-6 col-sm-3">
+                <a href="/blog" class="animated-btn btn-block">join now !</a>
+            </div>            
+        </div>
+        <div class="row mt-4">
+            <div class="col-sm-8">
+                <img src="/static/images/workspace.jpg"/>
+            </div>            
+        </div>
+    </div>
+</div>
+
+<div class="section-padding team" id="team">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12">
+                <p class="uppercase mb-5">
+                    meet some of the team
+                </p>
+                <div class="team-members">
+                    <div class="item member">
+                        {{template "user-template" .}}
+                    </div>
+                    <div class="item member">
+                        {{template "user-template" .}}
+                    </div>
+                    <div class="item member">
+                        {{template "user-template" .}}
+                    </div>
+                </div>
             </div>
         </div>
     </div>

@@ -1,11 +1,13 @@
 $body-color: #f0f0f0;
-$gray-color: #242424;
+$white-color-1: #d0d0d0;
+$white-color-2: #fafafa;
+$dark-color: #242424;
 $primary-light-color: #1c8fe0;
+$primary-dark-color: #134070;
 $primary-color: #0074c8;
 $primary-transparent-color: rgba(49, 27, 146, 0.2);
 $secondary-color: #1c4ae0;
-$secondary-light-color: #325ce6;
-$secondary-dark-color: #3150b4;
+$secondary-light-color: #d3ddfd;
 @import url('https://fonts.googleapis.com/css?family=Bai+Jamjuree|Chakra+Petch|K2D');
 .font-k2d {
     font-family: 'K2D', sans-serif;
@@ -256,24 +258,26 @@ $secondary-dark-color: #3150b4;
 }
 
 footer {
-    background: $primary-light-color;
-    background: -webkit-gradient(linear, left top, left bottom, from($primary-light-color), to($primary-color));
-    background: linear-gradient(to bottom, $primary-light-color 0%, $primary-color 100%);
-    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='$primary-light-color', endColorstr='$primary-color', GradientType=0);
-    color: white;
+    background: $white-color-1;
+    background: -webkit-gradient(linear, left top, left bottom, from($white-color-1), to($white-color-2));
+    background: linear-gradient(to bottom, $white-color-1 0%, $white-color-2 100%);    
+    color: $dark-color;
     .ti-heart {
-        color: red;
+        color: rgb(153, 15, 15);
     }
     a {
-        color: white;
+        color: $dark-color;
         transition: all 300ms ease-in-out;
         &:hover {
-            color: #aaa;
+            color: black;
             text-decoration: none;
         }
     }
     .divider {
         color: rgba(200, 200, 200, 0.4);
+    }
+    span {
+        color: rgb(138, 9, 9);
     }
 }
 
@@ -321,7 +325,7 @@ footer {
     text-align: center;
     text-transform: uppercase;
     padding: 5px;
-    border: 2px solid $primary-color;
+    border: 1px solid $primary-light-color;
 }
 
 .animated-btn:before {
@@ -422,7 +426,7 @@ footer {
             margin-top: 10px;
             footer {
                 background: none;
-                color: $gray-color;
+                color: $dark-color;
             }
         }
     }
@@ -444,5 +448,98 @@ footer {
             width: 100%;
             display: block;
         }
+        p {
+            color: $dark-color;
+        }
     }
+}
+
+.uppercase {
+    text-transform: uppercase;
+}
+
+.team {
+    background-color: $primary-dark-color;
+    p {
+        color: white;
+    }
+    .team-members {
+        .member {
+            .profile-image {
+                position: relative;
+                .image-box {
+                    position: relative;
+                    display: block;
+                    margin-right: 0;
+                    margin-left: auto;
+                    width: 75%;
+                    img {
+                        display: block;
+                        width: 100%;
+                    }
+                    .image-overlay {
+                        display: block;
+                        width: 100%;
+                        height: 100%;
+                        background-color: $primary-dark-color;
+                        position: absolute;
+                        left: 0;
+                        top: 0;
+                        opacity: 0.5;
+                    }
+                }
+                .image-text {
+                    position: absolute;
+                    bottom: 10px;
+                    color: white;
+                    padding: 5px 10px;
+                    width: 70%;
+                    h5 {
+                        font-size: 36px;
+                    }
+                }
+            }
+            .profile-text {
+                h3 {
+                    color: $primary-light-color;
+                    margin-bottom: 10px;
+                }
+            }
+        }
+    }
+}
+
+.owl-nav {
+    display: none;
+}
+
+.owl-dots {
+    margin-top: 30px;
+    .owl-dot {
+        width: 10px;
+        height: 10px;
+        background-color: $primary-light-color;
+        border-radius: 50%;
+        display: inline-block;
+        margin: 5px;
+        transition: all 300ms ease-in-out;
+        &.active {
+            background-color: white;
+            width: 30px;
+            border-radius: 5px;
+        }
+    }
+}
+
+.join {
+    position: relative;
+    background-color: $secondary-light-color;
+}
+
+#join-particle {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
 }

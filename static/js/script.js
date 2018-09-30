@@ -23,6 +23,19 @@ $(document).ready(function () {
 
     particlesJS.load("particles-js", '/static/data/particles-background.json?ver=' + load_unix_time);
 
+    $('.team-members').owlCarousel(
+        {
+            loop: true,
+            margin: 10,
+            responsiveClass: true,
+            nav: true,
+            autoplay: true,
+            autoplayTimeout: 3000,
+            smartSpeed: 700,
+            items: 1,
+        }
+    );
+
     setTimeout(function () {
         $('.preloader').fadeOut(500);
     }, 500);
