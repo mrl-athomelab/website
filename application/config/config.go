@@ -13,6 +13,11 @@ type Configuration struct {
 
 	TemplatePath string
 	StaticPath   string
+
+	Database struct {
+		Provider   string
+		ConnString string
+	}
 }
 
 func Read(path string) (*Configuration, error) {

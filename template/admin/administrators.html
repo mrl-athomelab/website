@@ -1,0 +1,59 @@
+{{define "admin-administrators"}}
+{{template "admin-head" .}}
+<div class="card p-3 text-white bg-dark">
+    <div class="card-body">
+        <h5 class="card-title">Administrators</h5>
+        <h6 class="card-subtitle mb-2 text-muted">List of adminstrators</h6>
+
+        <table class="table">
+            <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Username</th>
+                    <th scope="col">Updated At</th>
+                    <th scope="col">Created At</th>
+                </tr>
+            </thead>
+            <tbody>
+                {{ range $index, $item := .data.administrators }}
+                <tr>
+                    <td>
+                        {{add $index 1}}
+                    </td>
+                    <td>
+                        {{$item.Username}}
+                    </td>
+                    <td>
+                        {{format_time $item.UpdatedAt "2006/01/02 03:04:05"}}
+                    </td>
+                    <td>
+                        {{format_time $item.CreatedAt "2006/01/02 03:04:05"}}
+                    </td>
+                </tr>
+                {{ end }}
+            </tbody>
+        </table>
+    </div>
+</div>
+<div class="card p-3 text-white bg-dark mt-4">
+    <form class="card-body" method="POST" action="/admin/administrators/new">
+        <h5 class="card-title">New Administrator</h5>
+        <h6 class="card-subtitle mb-2 text-muted">Enter your username and password !</h6>
+        <br />
+        <div class="form-group">
+            <input type="text" class="form-control" id="username" name="username" placeholder="Enter your username">
+        </div>
+        <div class="form-group">
+            <input type="password" class="form-control" id="password" name="password" placeholder="Enter your password">
+        </div>
+        <input hidden value="{{.csrf_token}}" class="form-control" name="csrf_token">
+        <button class="btn btn-secondary">Submit</button>
+        {{if .data.message }}
+        <div class="alert alert-dark mt-3" role="alert">
+            {{.data.message}}
+        </div>
+        {{end}}
+    </form>
+</div>
+{{template "admin-bottom" .}}
+{{end}}

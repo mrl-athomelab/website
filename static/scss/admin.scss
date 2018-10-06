@@ -1,0 +1,12 @@
+.page-admin-login {
+    background-color: #444;
+}
+
+body[class^='page-admin-'] {
+    .rounded {
+        border-radius: 5px;
+    }
+    .table td, .table th {
+        border-top: none;
+    }
+}

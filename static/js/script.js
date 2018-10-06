@@ -21,7 +21,9 @@ $(document).ready(function () {
         });
     });
 
-    particlesJS.load("particles-js", '/static/data/particles-background.json?ver=' + load_unix_time);
+    if ($("#particles-js").length > 0) {
+        particlesJS.load("particles-js", '/static/data/particles-background.json?ver=' + load_unix_time);
+    }
 
     $('.team-members').owlCarousel(
         {
@@ -39,4 +41,13 @@ $(document).ready(function () {
     setTimeout(function () {
         $('.preloader').fadeOut(500);
     }, 500);
+
+    $(".btn-target").each(function () {
+        $(this).click(function () {
+            var target = $(this).data('target');
+            $.when($(".preloader").fadeIn(500)).done(function () {                
+                window.location = target;
+            });
+        });
+    });
 });

@@ -11,8 +11,9 @@ import (
 
 var (
 	funcMap = tpl.FuncMap{
-		"add":     AddFunction,
-		"as_html": AsHTML,
+		"add":         AddFunction,
+		"as_html":     AsHTML,
+		"format_time": FormatTime,
 	}
 )
 

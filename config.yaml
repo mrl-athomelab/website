@@ -5,3 +5,7 @@ secretkey: "9d7750a188f73c0d16a11bdc48c71400"
 
 templatepath: "template"
 staticpath: "static"
+
+database:
+  provider: "sqlite3"
+  connstring: "database.sqlite3"
