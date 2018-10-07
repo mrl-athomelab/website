@@ -2,6 +2,7 @@ package server
 
 import (
 	"net/http"
+	"strconv"
 	"time"
 
 	"github.com/gin-gonic/gin"
@@ -42,7 +43,28 @@ func (s *Server) adminAdministratorsGetHandler(ctx *gin.Context) {
 	})
 }
 
-func (s *Server) adminAdministratorsNewPostHandler(ctx *gin.Context) {
+func (s *Server) adminAdministratorsRestDeleteHandler(ctx *gin.Context) {
+	id, err := strconv.Atoi(ctx.Param("id"))
+	if err != nil {
+		jsonresponse.Error(ctx, err)
+		return
+	}
+	administrator := &database.Administrator{}
+	administrator.ID = uint(id)
+	exists := administrator.Get(database.ByID)
+	if !exists {
+		jsonresponse.Failed(ctx, gin.H{
+			"message": "user not exists !",
+		})
+		return
+	}
+	administrator.Delete()
+	jsonresponse.Success(ctx, gin.H{
+		"message": "removed !",
+	})
+}
+
+func (s *Server) adminAdministratorsRestPostHandler(ctx *gin.Context) {
 	var input struct {
 		Username  string `json:"username"`
 		Password  string `json:"password"`

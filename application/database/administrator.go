@@ -33,13 +33,21 @@ func (u *Administrator) Save() error {
 	return db.Model(u).Save(u).Error
 }
 
+func (u *Administrator) Delete() error {
+	return db.Model(u).Delete(u).Error
+}
+
 func (u *Administrator) Get(mode int8) bool {
-	query := false
+	query := true
 	switch mode {
 	case ByUsernamePassword:
 		db.Model(u).Find(u, "username = ? AND password = ?", u.Username, u.Password)
-		query = true
 		break
+	case ByID:
+		db.Model(u).Find(u, "id = ?", u.ID)
+		break
+	default:
+		query = false
 	}
 	return query && u.ID > 0
 }

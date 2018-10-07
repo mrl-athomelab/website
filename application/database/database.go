@@ -17,6 +17,7 @@ var (
 
 const (
 	ByUsernamePassword = int8(iota)
+	ByID
 )
 
 func Open(provider, connString string) error {

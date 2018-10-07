@@ -77,7 +77,8 @@ func Prepare(configFile string) (s *Server, err error) {
 		administrators := admin.Group("/administrators", s.adminAuthMiddleware())
 		{
 			administrators.GET("/", s.adminAdministratorsGetHandler)
-			administrators.POST("/new", s.adminAdministratorsNewPostHandler)
+			administrators.POST("/rest", s.adminAdministratorsRestPostHandler)
+			administrators.DELETE("/rest/:id", s.adminAdministratorsRestDeleteHandler)
 		}
 	}
 

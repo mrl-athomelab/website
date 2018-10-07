@@ -45,9 +45,13 @@ $(document).ready(function () {
     $(".btn-target").each(function () {
         $(this).click(function () {
             var target = $(this).data('target');
-            $.when($(".preloader").fadeIn(500)).done(function () {                
+            $.when($(".preloader").fadeIn(500)).done(function () {
                 window.location = target;
             });
         });
     });
+});
+
+$(function () {
+    $('[data-toggle="tooltip"]').tooltip()
 });

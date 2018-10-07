@@ -12,9 +12,12 @@
                     <th scope="col">Username</th>
                     <th scope="col">Updated At</th>
                     <th scope="col">Created At</th>
+                    <th>
+                        Operation
+                    </th>
                 </tr>
             </thead>
-            <tbody>
+            <tbody class="admin-table">
                 {{ range $index, $item := .data.administrators }}
                 <tr>
                     <td>
@@ -23,11 +26,22 @@
                     <td>
                         {{$item.Username}}
                     </td>
-                    <td>
-                        {{format_time $item.UpdatedAt "2006/01/02 03:04:05"}}
+                    <td data-toggle="tooltip" data-placement="top" title='{{format_time $item.UpdatedAt "2006/01/02 03:04:05"}}'>
+                        {{format_time $item.UpdatedAt "2006/01/02"}}
+                    </td>
+                    <td data-toggle="tooltip" data-placement="top" title='{{format_time $item.UpdatedAt "2006/01/02 03:04:05"}}'>
+                        {{format_time $item.CreatedAt "2006/01/02"}}
                     </td>
                     <td>
-                        {{format_time $item.CreatedAt "2006/01/02 03:04:05"}}
+                        <div class="btn-group" role="group">
+                            <button id="btnoperation" type="button" class="btn btn-secondary dropdown-toggle"
+                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                Operation
+                            </button>
+                            <div class="dropdown-menu" aria-labelledby="btnoperation">
+                                <button type="button" class="dropdown-item remove-button" data-id="{{$item.ID}}">Remove</button>                                
+                            </div>
+                        </div>
                     </td>
                 </tr>
                 {{ end }}
@@ -35,25 +49,20 @@
         </table>
     </div>
 </div>
-<div class="card p-3 text-white bg-dark mt-4">
-    <form class="card-body" method="POST" action="/admin/administrators/new">
+<div class="card p-3 text-white bg-dark mt-4 new-admin">
+    <div class="card-body">
         <h5 class="card-title">New Administrator</h5>
         <h6 class="card-subtitle mb-2 text-muted">Enter your username and password !</h6>
         <br />
         <div class="form-group">
-            <input type="text" class="form-control" id="username" name="username" placeholder="Enter your username">
+            <input autocomplete="off" type="text" class="form-control" id="username" name="username" placeholder="Enter your username">
         </div>
         <div class="form-group">
-            <input type="password" class="form-control" id="password" name="password" placeholder="Enter your password">
+            <input autocomplete="off" type="password" class="form-control" id="password" name="password" placeholder="Enter your password">
         </div>
         <input hidden value="{{.csrf_token}}" class="form-control" name="csrf_token">
         <button class="btn btn-secondary">Submit</button>
-        {{if .data.message }}
-        <div class="alert alert-dark mt-3" role="alert">
-            {{.data.message}}
-        </div>
-        {{end}}
-    </form>
+    </div>
 </div>
 {{template "admin-bottom" .}}
 {{end}}

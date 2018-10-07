@@ -6,11 +6,13 @@ var gulp = require('gulp'),
 
 var jsFiles = [
     'static/js/jquery.min.js',
+    'static/js/toastr.min.js',
     'static/js/popper.min.js',
     'static/js/bootstrap.min.js',
     'static/js/owlcarousel.min.js',
     'static/js/particles.min.js',
-    'static/js/script.js'
+    'static/js/script.js',
+    'static/js/admin.js',
 ];
 
 gulp.task('styles', function () {
@@ -38,5 +40,5 @@ gulp.task('scss', function () {
 gulp.task('watch', function () {
     gulp.watch('static/scss/*.scss', ['scss']);
     gulp.watch('static/css/*.css', ['styles']);
-    gulp.watch('static/js/script.js', ['scripts']);
+    gulp.watch('static/js/*.js', ['scripts']);
 });
