@@ -12,6 +12,7 @@ var (
 	db     *gorm.DB
 	tables = map[string]interface{}{
 		"administrators": &Administrator{},
+		"members":        &Member{},
 	}
 )
 

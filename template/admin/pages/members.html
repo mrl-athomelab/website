@@ -1,0 +1,100 @@
+{{define "admin-members"}}
+{{template "admin-head" .}}
+<div class="card p-3 text-white bg-dark">
+    <div class="card-body">
+        <h5 class="card-title">Members</h5>
+        <h6 class="card-subtitle mb-2 text-muted">List of team members</h6>
+
+        <table class="table">
+            <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Name</th>
+                    <th scope="col">Created At</th>
+                    <th>
+                        Operation
+                    </th>
+                </tr>
+            </thead>
+            <tbody class="members-table">
+                {{ range $index, $item := .data.members }}
+                <tr>
+                    <td>
+                        {{add $index 1}}
+                    </td>
+                    <td>
+                        {{$item.FirstName}} {{$item.LastName}}
+                    </td>
+                    <td data-toggle="tooltip" data-placement="top" title='{{format_time $item.UpdatedAt "2006/01/02 03:04:05"}}'>
+                        {{format_time $item.CreatedAt "2006/01/02"}}
+                    </td>
+                    <td>
+                        <div class="btn-group" role="group">
+                            <button id="btnoperation" type="button" class="btn btn-secondary dropdown-toggle"
+                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                Operation
+                            </button>
+                            <div class="dropdown-menu" aria-labelledby="btnoperation">
+                                <button type="button" class="dropdown-item remove-button" data-id="{{$item.ID}}">Remove</button>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+                {{ end }}
+            </tbody>
+        </table>
+    </div>
+</div>
+<div class="card p-3 text-white bg-dark mt-4 new-member">
+    <div class="card-body">
+        <h5 class="card-title">New Member</h5>
+        <h6 class="card-subtitle mb-2 text-muted">Enter your new member's information.</h6>
+        <br />
+        <div class="row">
+            <div class="col-sm-6">
+                <div class="form-group">
+                    <input autocomplete="off" type="text" class="form-control" id="firstname" name="firstname"
+                        placeholder="First name">
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <div class="form-group">
+                    <input autocomplete="off" type="text" class="form-control" id="lastname" name="lastname"
+                        placeholder="Last name">
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <textarea placeholder="Biography" name="biography" class="form-control"></textarea>
+        </div>
+        <div class="row">
+            <div class="col-sm-3">
+                <div class="form-group">
+                    <select class="form-control" name="socialmediatype">
+                        <option value="twitter" selected>
+                            Twitter
+                        </option>
+                        <option value="github">
+                            Github
+                        </option>
+                    </select>
+                </div>
+            </div>
+            <div class="col-sm-9">
+                <div class="form-group">
+                    <input autocomplete="off" type="text" class="form-control" id="socialmedialink" name="socialmedialink"
+                        placeholder="Social media link">
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="custom-file">
+                <input type="file" class="custom-file-input" id="image_profile">
+                <label class="custom-file-label" for="image_profile">Choose file</label>
+            </div>
+        </div>
+        <button class="btn btn-secondary">Submit</button>
+    </div>
+</div>
+{{template "admin-bottom" .}}
+{{end}}

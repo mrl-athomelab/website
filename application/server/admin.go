@@ -14,6 +14,77 @@ import (
 	"github.com/mrl-athomelab/website/application/secure"
 )
 
+func (s *Server) adminMembersGetHandler(ctx *gin.Context) {
+	members := &database.Members{}
+	s.render(ctx, http.StatusOK, "admin-members", gin.H{
+		"members": members.All(),
+	})
+}
+
+func (s *Server) adminMembersRestDeleteHandler(ctx *gin.Context) {
+	id, err := strconv.Atoi(ctx.Param("id"))
+	if err != nil {
+		jsonresponse.Error(ctx, err)
+		return
+	}
+	member := &database.Member{}
+	member.ID = uint(id)
+	exists := member.Get(database.ByID)
+	if !exists {
+		jsonresponse.Failed(ctx, gin.H{
+			"message": "user not exists !",
+		})
+		return
+	}
+	member.Delete()
+	jsonresponse.Success(ctx, gin.H{
+		"message": "removed !",
+	})
+}
+
+func (s *Server) adminMembersImagePostHandler(ctx *gin.Context) {
+
+}
+
+func (s *Server) adminMembersRestPostHandler(ctx *gin.Context) {
+	var input struct {
+		Firstname       string `json:"firstname"`
+		Lastname        string `json:"lastname"`
+		Biography       string `json:"biography"`
+		Socialmedialink string `json:"socialmedialink"`
+		Socialmediatype string `json:"socialmediatype"`
+	}
+	err := ctx.BindJSON(&input)
+	if err != nil {
+		jsonresponse.Error(ctx, err)
+		return
+	}
+	member := &database.Member{
+		FirstName:       input.Firstname,
+		LastName:        input.Lastname,
+		Biography:       input.Biography,
+		SocialMediaLink: input.Socialmedialink,
+		SocialMediaType: input.Socialmediatype,
+	}
+	exists := member.Get(database.ByUsernamePassword)
+	if exists {
+		jsonresponse.Failed(ctx, gin.H{
+			"user":    member,
+			"message": "user already exists !",
+		})
+		return
+	}
+	err = member.Save()
+	if err != nil {
+		jsonresponse.Error(ctx, err)
+		return
+	}
+	jsonresponse.Success(ctx, gin.H{
+		"user":    member,
+		"message": "saved !",
+	})
+}
+
 func (s *Server) adminAuthMiddleware() gin.HandlerFunc {
 	return func(ctx *gin.Context) {
 		c, err := cookie.Get(ctx, "administrator_cookie", s.config.SecretKey)
@@ -66,9 +137,8 @@ func (s *Server) adminAdministratorsRestDeleteHandler(ctx *gin.Context) {
 
 func (s *Server) adminAdministratorsRestPostHandler(ctx *gin.Context) {
 	var input struct {
-		Username  string `json:"username"`
-		Password  string `json:"password"`
-		CSRFToken string `json:"csrf_token"`
+		Username string `json:"username"`
+		Password string `json:"password"`
 	}
 	err := ctx.BindJSON(&input)
 	if err != nil {

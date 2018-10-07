@@ -77,8 +77,22 @@ func Prepare(configFile string) (s *Server, err error) {
 		administrators := admin.Group("/administrators", s.adminAuthMiddleware())
 		{
 			administrators.GET("/", s.adminAdministratorsGetHandler)
-			administrators.POST("/rest", s.adminAdministratorsRestPostHandler)
-			administrators.DELETE("/rest/:id", s.adminAdministratorsRestDeleteHandler)
+			rest := administrators.Group("/rest")
+			{
+				rest.POST("/", s.adminAdministratorsRestPostHandler)
+				rest.DELETE("/:id", s.adminAdministratorsRestDeleteHandler)
+			}
+		}
+
+		members := admin.Group("/members", s.adminAuthMiddleware())
+		{
+			members.GET("/", s.adminMembersGetHandler)
+			members.POST("/image", s.adminMembersImagePostHandler)
+			rest := members.Group("/rest")
+			{
+				rest.POST("/rest", s.adminMembersRestPostHandler)
+				rest.DELETE("/rest/:id", s.adminMembersRestDeleteHandler)
+			}
 		}
 	}
 

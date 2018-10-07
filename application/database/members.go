@@ -5,22 +5,26 @@ import (
 	"github.com/satori/go.uuid"
 )
 
-type Administrator struct {
+type Member struct {
 	gorm.Model
-	Username string
-	Password string
-	UUID     string
+	FirstName       string
+	LastName        string
+	UUID            string
+	Rule            string
+	Biography       string
+	SocialMediaType string
+	SocialMediaLink string
 }
 
-type Administrators []Administrator
+type Members []Member
 
-func (a *Administrators) All() (out *Administrators) {
-	out = &Administrators{}
+func (a *Members) All() (out *Members) {
+	out = &Members{}
 	db.Model(tables["members"]).Order("created_at desc").Scan(out)
 	return
 }
 
-func (u *Administrator) BeforeSave() error {
+func (u *Member) BeforeSave() error {
 	tUUID, err := uuid.NewV4()
 	if err != nil {
 		return err
@@ -29,20 +33,17 @@ func (u *Administrator) BeforeSave() error {
 	return nil
 }
 
-func (u *Administrator) Save() error {
+func (u *Member) Save() error {
 	return db.Model(u).Save(u).Error
 }
 
-func (u *Administrator) Delete() error {
+func (u *Member) Delete() error {
 	return db.Model(u).Delete(u).Error
 }
 
-func (u *Administrator) Get(mode int8) bool {
+func (u *Member) Get(mode int8) bool {
 	query := true
 	switch mode {
-	case ByUsernamePassword:
-		db.Model(u).Find(u, "username = ? AND password = ?", u.Username, u.Password)
-		break
 	case ByID:
 		db.Model(u).Find(u, "id = ?", u.ID)
 		break
