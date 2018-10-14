@@ -65,7 +65,7 @@ func Prepare(configFile string) (s *Server, err error) {
 	{
 		pages.GET("/blog")
 		pages.GET("/gallery")
-		pages.GET("/aboutus")
+		pages.GET("/aboutus", s.staticRender("aboutus"))
 		pages.GET("/join")
 	}
 

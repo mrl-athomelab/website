@@ -6,6 +6,10 @@ $(document).ready(function () {
 
     administrators_page();
     members_page();
+
+    if ($("#simplemde").length > 0) {        
+        var simplemde = new SimpleMDE({ element: document.getElementById("simplemde") });
+    }
 });
 
 function members_page() {

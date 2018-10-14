@@ -50,6 +50,12 @@ $(document).ready(function () {
             });
         });
     });
+
+    var page = $("body").data('page');
+    $(".mainmenu-area .nav-item").each(function () {
+        var nav_name = $(this).data('page');
+        if (nav_name == page) $(this).addClass("active");
+    });
 });
 
 $(function () {

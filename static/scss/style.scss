@@ -219,8 +219,16 @@ $secondary-light-color: #d3ddfd;
 }
 
 .full-height {
+    position: relative;
     width: 100%;
     height: 100vh;
+}
+
+.small-header {
+    position: relative;
+    width: 100%;
+    height: 40vh;
+    max-height: 350px;
 }
 
 .mainmenu-area {
@@ -260,7 +268,7 @@ $secondary-light-color: #d3ddfd;
 footer {
     background: $white-color-1;
     background: -webkit-gradient(linear, left top, left bottom, from($white-color-1), to($white-color-2));
-    background: linear-gradient(to bottom, $white-color-1 0%, $white-color-2 100%);    
+    background: linear-gradient(to bottom, $white-color-1 0%, $white-color-2 100%);
     color: $dark-color;
     .ti-heart {
         color: rgb(153, 15, 15);
@@ -542,4 +550,14 @@ footer {
     left: 0;
     width: 100%;
     height: 100%;
+}
+
+.navbar-dark .navbar-nav .active>.nav-link {
+    color: $primary-color;
+    border-bottom: 1px solid $secondary-color;
+}
+
+.navbar-dark .navbar-nav .nav-link:focus,
+.navbar-dark .navbar-nav .nav-link:hover {
+    color: $primary-color;    
 }
