@@ -18,7 +18,7 @@
             </thead>
             <tbody class="members-table">
                 {{ range $index, $item := .data.members }}
-                <tr>
+                <tr class="member-$item.ID">
                     <td>
                         {{add $index 1}}
                     </td>
@@ -35,6 +35,7 @@
                                 Operation
                             </button>
                             <div class="dropdown-menu" aria-labelledby="btnoperation">
+                                <a class="dropdown-item" href="/admin/members/edit/{{$item.ID}}">Edit</a>
                                 <button type="button" class="dropdown-item remove-button" data-id="{{$item.ID}}">Remove</button>
                             </div>
                         </div>
@@ -88,10 +89,7 @@
             </div>
         </div>
         <div class="form-group">
-            <div class="custom-file">
-                <input type="file" class="custom-file-input" id="image_profile">
-                <label class="custom-file-label" for="image_profile">Choose file</label>
-            </div>
+            <input autocomplete="off" type="text" class="form-control" id="rule" name="rule" placeholder="Rule">
         </div>
         <button class="btn btn-secondary">Submit</button>
     </div>

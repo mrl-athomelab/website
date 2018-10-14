@@ -1,0 +1,44 @@
+{{define "admin-member"}}
+{{template "admin-head" .}}
+<div class="card p-3 text-white bg-dark">
+    <div class="card-body">
+        <h5 class="card-title">Edit Information</h5>
+        <h6 class="card-subtitle mb-2 text-muted">Edit {{.data.member.FirstName}}'s information.</h6>
+        {{with .data.member}}
+        <form>
+            <div class="row">
+                <div class="col">
+                    <div class="form-group">
+                        <label for="firstname">FirstName</label>
+                        <input type="text" class="form-control" id="firstname" placeholder="FirstName" value="{{.FirstName}}">
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="form-group">
+                        <label for="lastname">LastName</label>
+                        <input type="text" class="form-control" id="lastname" placeholder="LastName" value="{{.LastName}}">
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="sbiography">Short Biography</label>
+                <textarea id="sbiography" placeholder="Short Biography" name="short_biography" class="form-control">{{.ShortBiography}}</textarea>
+            </div>
+            <div class="form-group">
+                <label for="lbiography">Long Biography</label>
+                <trix-editor id="lbiography" placeholder="Long Biography" name="long_biography"></trix-editor>                
+            </div>
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
+        {{end}}
+    </div>
+</div>
+<div class="card p-3 text-white bg-dark mt-4 new-member">
+    <div class="card-body">
+        <h5 class="card-title">Profile Image</h5>
+        <h6 class="card-subtitle mb-2 text-muted">Update profile image</h6>
+        <button class="btn btn-secondary">Submit</button>
+    </div>
+</div>
+{{template "admin-bottom" .}}
+{{end}}

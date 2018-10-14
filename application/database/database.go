@@ -27,6 +27,7 @@ func Open(provider, connString string) error {
 	if err != nil {
 		return err
 	}
+	db.LogMode(true)
 
 	for name, object := range tables {
 		logger.Info("Checking table %s ...", name)

@@ -21,6 +21,24 @@ func (s *Server) adminMembersGetHandler(ctx *gin.Context) {
 	})
 }
 
+func (s *Server) adminMembersEditGetHandler(ctx *gin.Context) {
+	id, err := strconv.Atoi(ctx.Param("id"))
+	if err != nil {
+		ctx.Redirect(http.StatusFound, "/admin/members/?err=bad_id")
+		return
+	}
+	member := &database.Member{}
+	member.ID = uint(id)
+	exists := member.Get(database.ByID)
+	if !exists {
+		ctx.Redirect(http.StatusFound, "/admin/members/?err=not_found")
+		return
+	}
+	s.render(ctx, http.StatusOK, "admin-member", gin.H{
+		"member": member,
+	})
+}
+
 func (s *Server) adminMembersRestDeleteHandler(ctx *gin.Context) {
 	id, err := strconv.Atoi(ctx.Param("id"))
 	if err != nil {
@@ -53,6 +71,7 @@ func (s *Server) adminMembersRestPostHandler(ctx *gin.Context) {
 		Biography       string `json:"biography"`
 		Socialmedialink string `json:"socialmedialink"`
 		Socialmediatype string `json:"socialmediatype"`
+		Rule            string `json:"rule"`
 	}
 	err := ctx.BindJSON(&input)
 	if err != nil {
@@ -62,9 +81,10 @@ func (s *Server) adminMembersRestPostHandler(ctx *gin.Context) {
 	member := &database.Member{
 		FirstName:       input.Firstname,
 		LastName:        input.Lastname,
-		Biography:       input.Biography,
+		ShortBiography:  input.Biography,
 		SocialMediaLink: input.Socialmedialink,
 		SocialMediaType: input.Socialmediatype,
+		Rule:            input.Rule,
 	}
 	exists := member.Get(database.ByUsernamePassword)
 	if exists {

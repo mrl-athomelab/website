@@ -10,6 +10,23 @@ $(document).ready(function () {
 
 function members_page() {
     var members = $(".page-admin-members");
+    members.find(".members-table .remove-button").click(function () {
+        var btn = $(this);
+        btn.attr('disabled', 'disabled');
+        var id = btn.data('id');
+        $.ajax({
+            type: "DELETE",
+            url: "/admin/members/rest/" + id,
+        }).done(function (data) {
+            toastr.success(data.message, data.result.message, { timeOut: 3000 });
+            $(".member-" + id).fadeOut();
+        }).fail(function (err) {
+            console.log(err);
+            toastr.error('error on submiting, please check console log !', 'error !', { timeOut: 3000 });
+        }).always(function () {
+            btn.removeAttr('disabled');
+        });
+    });
     members.find(".new-member button").click(function () {
         var data = {
             "firstname": members.find("input[name='firstname']").val(),
@@ -17,24 +34,24 @@ function members_page() {
             "biography": members.find("textarea[name='biography']").val(),
             "socialmedialink": members.find("input[name='socialmedialink']").val(),
             "socialmediatype": members.find("select[name='socialmediatype']").val(),
-        }
-        console.log(JSON.stringify(data));
-        // var btn = $(this);
-        // btn.attr('disabled', 'disabled');
+            "rule": members.find("input[name='rule']").val(),
+        }        
+        var btn = $(this);
+        btn.attr('disabled', 'disabled');
 
-        // $.ajax({
-        //     type: "POST",
-        //     url: "/admin/members/rest",
-        //     data: JSON.stringify(data)
-        // }).done(function (data) {
-        //     toastr.success(data.message, data.result.message, { timeOut: 3000 });
-        //     location.reload();
-        // }).fail(function (err) {
-        //     console.log(err);
-        //     toastr.error('error on submiting, please check console log !', 'error !', { timeOut: 3000 });
-        // }).always(function () {
-        //     btn.removeAttr('disabled');
-        // });
+        $.ajax({
+            type: "POST",
+            url: "/admin/members/rest/",
+            data: JSON.stringify(data)
+        }).done(function (data) {
+            toastr.success(data.message, data.result.message, { timeOut: 3000 });
+            location.reload();
+        }).fail(function (err) {
+            console.log(err);
+            toastr.error('error on submiting, please check console log !', 'error !', { timeOut: 3000 });
+        }).always(function () {
+            btn.removeAttr('disabled');
+        });
     });
 }
 
@@ -49,6 +66,7 @@ function administrators_page() {
             url: "/admin/administrators/rest/" + id,
         }).done(function (data) {
             toastr.success(data.message, data.result.message, { timeOut: 3000 });
+            $(".administrator-" + id).fadeOut();
         }).fail(function (err) {
             console.log(err);
             toastr.error('error on submiting, please check console log !', 'error !', { timeOut: 3000 });
@@ -70,7 +88,7 @@ function administrators_page() {
             data: JSON.stringify(data)
         }).done(function (data) {
             toastr.success(data.message, data.result.message, { timeOut: 3000 });
-            location.reload();
+            location.reload();                        
         }).fail(function (err) {
             console.log(err);
             toastr.error('error on submiting, please check console log !', 'error !', { timeOut: 3000 });

@@ -88,10 +88,13 @@ func Prepare(configFile string) (s *Server, err error) {
 		{
 			members.GET("/", s.adminMembersGetHandler)
 			members.POST("/image", s.adminMembersImagePostHandler)
+
+			members.GET("/edit/:id", s.adminMembersEditGetHandler)
+
 			rest := members.Group("/rest")
 			{
-				rest.POST("/rest", s.adminMembersRestPostHandler)
-				rest.DELETE("/rest/:id", s.adminMembersRestDeleteHandler)
+				rest.POST("/", s.adminMembersRestPostHandler)
+				rest.DELETE("/:id", s.adminMembersRestDeleteHandler)
 			}
 		}
 	}

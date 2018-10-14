@@ -16,7 +16,7 @@ type Administrators []Administrator
 
 func (a *Administrators) All() (out *Administrators) {
 	out = &Administrators{}
-	db.Model(tables["members"]).Order("created_at desc").Scan(out)
+	db.Model(tables["administrators"]).Order("created_at desc").Scan(out)
 	return
 }
 

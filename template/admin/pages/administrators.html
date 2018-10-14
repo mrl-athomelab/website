@@ -18,8 +18,8 @@
                 </tr>
             </thead>
             <tbody class="admin-table">
-                {{ range $index, $item := .data.administrators }}
-                <tr>
+                {{ range $index, $item := .data.administrators }}                
+                <tr class="administrator-{{$item.ID}}">
                     <td>
                         {{add $index 1}}
                     </td>

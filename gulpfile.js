@@ -11,6 +11,7 @@ var jsFiles = [
     'static/js/bootstrap.min.js',
     'static/js/owlcarousel.min.js',
     'static/js/particles.min.js',
+    'static/js/trix.js',
     'static/js/script.js',
     'static/js/admin.js',
 ];

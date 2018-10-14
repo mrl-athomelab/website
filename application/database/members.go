@@ -11,7 +11,8 @@ type Member struct {
 	LastName        string
 	UUID            string
 	Rule            string
-	Biography       string
+	ShortBiography  string
+	LongBiography   string
 	SocialMediaType string
 	SocialMediaLink string
 }
