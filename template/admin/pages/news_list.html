@@ -1,0 +1,68 @@
+{{define "admin-news-list"}}
+{{template "admin-head" .}}
+<div class="card p-3 text-white bg-dark">
+    <div class="card-body">
+        <h5 class="card-title">News</h5>
+        <h6 class="card-subtitle mb-2 text-muted">List of team News</h6>
+
+        <table class="table">
+            <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Name</th>
+                    <th scope="col">Created At</th>
+                    <th>
+                        Operation
+                    </th>
+                </tr>
+            </thead>
+            <tbody class="news-table">
+                {{ range $index, $item := .data.news }}
+                <tr class="news-{{$item.ID}}">
+                    <td>
+                        {{add $index 1}}
+                    </td>
+                    <td>
+                        {{$item.Title}}
+                    </td>
+                    <td data-toggle="tooltip" data-placement="top" title='{{format_time $item.UpdatedAt "2006/01/02 03:04:05"}}'>
+                        {{format_time $item.CreatedAt "2006/01/02"}}
+                    </td>
+                    <td>
+                        <div class="btn-group" role="group">
+                            <button id="btnoperation" type="button" class="btn btn-secondary dropdown-toggle"
+                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                Operation
+                            </button>
+                            <div class="dropdown-menu" aria-labelledby="btnoperation">
+                                <a class="dropdown-item" href="/admin/news/edit/{{$item.ID}}">Edit</a>
+                                <button type="button" class="dropdown-item remove-button" data-id="{{$item.ID}}">Remove</button>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+                {{ end }}
+            </tbody>
+        </table>
+    </div>
+</div>
+<div class="card p-3 text-white bg-dark mt-4 new-news">
+    <div class="card-body">
+        <h5 class="card-title">Add new news</h5>        
+        <br />
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="form-group">
+                    <input autocomplete="off" type="text" class="form-control" id="title" name="title"
+                        placeholder="Title">
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <textarea id="simplemde" name="content" class="form-control"></textarea>
+        </div>        
+        <button class="btn btn-secondary">Submit</button>
+    </div>
+</div>
+{{template "admin-bottom" .}}
+{{end}}

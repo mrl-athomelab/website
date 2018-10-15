@@ -13,6 +13,7 @@ var (
 	tables = map[string]interface{}{
 		"administrators": &Administrator{},
 		"members":        &Member{},
+		"news":           &News{},
 	}
 )
 

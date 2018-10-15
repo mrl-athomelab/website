@@ -240,3 +240,110 @@ func (s *Server) adminLoginAnyHandler(ctx *gin.Context) {
 		"message": "Bad method !",
 	})
 }
+
+func (s *Server) adminNewsGetHandler(ctx *gin.Context) {
+	news := &database.NewsList{}
+	s.render(ctx, http.StatusOK, "admin-news-list", gin.H{
+		"news": news.All(),
+	})
+}
+
+func (s *Server) adminNewsRestPutHandler(ctx *gin.Context) {
+	id, err := strconv.Atoi(ctx.Param("id"))
+	if err != nil {
+		jsonresponse.Error(ctx, err)
+		return
+	}
+	news := &database.News{}
+	news.ID = uint(id)
+	exists := news.Get(database.ByID)
+	if !exists {
+		jsonresponse.Error(ctx, err)
+		return
+	}
+	var input struct {
+		Content string `json:"content"`
+		Title   string `json:"title"`
+	}
+	err = ctx.BindJSON(&input)
+	if err != nil {
+		jsonresponse.Error(ctx, err)
+		return
+	}
+	news.Title = input.Title
+	news.Content = input.Content
+	err = news.Save()
+	if err != nil {
+		jsonresponse.Error(ctx, err)
+		return
+	}
+
+	jsonresponse.Success(ctx, gin.H{
+		"message": "saved !",
+		"news":    news,
+	})
+}
+
+func (s *Server) adminNewsEditGetHandler(ctx *gin.Context) {
+	id, err := strconv.Atoi(ctx.Param("id"))
+	if err != nil {
+		ctx.Redirect(http.StatusFound, "/admin/members/?err=bad_id")
+		return
+	}
+	news := &database.News{}
+	news.ID = uint(id)
+	exists := news.Get(database.ByID)
+	if !exists {
+		ctx.Redirect(http.StatusFound, "/admin/members/?err=not_exists")
+		return
+	}
+	s.render(ctx, 200, "admin-news-edit", gin.H{
+		"news": news,
+	})
+}
+
+func (s *Server) adminNewsRestPostHandler(ctx *gin.Context) {
+	var input struct {
+		Content string `json:"content"`
+		Title   string `json:"title"`
+	}
+	err := ctx.BindJSON(&input)
+	if err != nil {
+		jsonresponse.Error(ctx, err)
+		return
+	}
+	news := &database.News{}
+	news.Title = input.Title
+	news.Content = input.Content
+	err = news.Save()
+	if err != nil {
+		jsonresponse.Error(ctx, err)
+		return
+	}
+
+	jsonresponse.Success(ctx, gin.H{
+		"news":    news,
+		"message": "saved !",
+	})
+}
+
+func (s *Server) adminNewsRestDeleteHandler(ctx *gin.Context) {
+	id, err := strconv.Atoi(ctx.Param("id"))
+	if err != nil {
+		jsonresponse.Error(ctx, err)
+		return
+	}
+	news := &database.News{}
+	news.ID = uint(id)
+	exists := news.Get(database.ByID)
+	if !exists {
+		jsonresponse.Failed(ctx, gin.H{
+			"message": "user not exists !",
+		})
+		return
+	}
+	news.Delete()
+	jsonresponse.Success(ctx, gin.H{
+		"message": "removed !",
+	})
+}

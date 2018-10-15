@@ -18,7 +18,7 @@
             </thead>
             <tbody class="members-table">
                 {{ range $index, $item := .data.members }}
-                <tr class="member-$item.ID">
+                <tr class="member-{{$item.ID}}">
                     <td>
                         {{add $index 1}}
                     </td>

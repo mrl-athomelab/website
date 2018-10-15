@@ -1,3 +1,5 @@
+var simplemde;
+
 $(document).ready(function () {
     $(".alert").each(function () {
         if ($(this).hasClass("hidden"))
@@ -6,11 +8,82 @@ $(document).ready(function () {
 
     administrators_page();
     members_page();
+    news_page();
+    news_edit_page();
 
-    if ($("#simplemde").length > 0) {        
-        var simplemde = new SimpleMDE({ element: document.getElementById("simplemde") });
-    }
+    if ($("#simplemde").length > 0)
+        simplemde = new SimpleMDE({ element: document.getElementById("simplemde") });
 });
+
+function news_edit_page() {
+    var news = $(".page-admin-news-edit");
+    news.find(".new-news button").click(function () {
+        var id = news.find("input[name='id']").val();
+        var data = {
+            "title": news.find("input[name='title']").val(),
+            "content": simplemde.value(),
+        }
+        var btn = $(this);
+        btn.attr('disabled', 'disabled');
+
+        $.ajax({
+            type: "PUT",
+            url: "/admin/news/rest/" + id,
+            data: JSON.stringify(data)
+        }).done(function (data) {
+            toastr.success(data.message, data.result.message, { timeOut: 3000 });
+            location.reload();
+        }).fail(function (err) {
+            console.log(err);
+            toastr.error('error on submiting, please check console log !', 'error !', { timeOut: 3000 });
+        }).always(function () {
+            btn.removeAttr('disabled');
+        });
+    });
+}
+
+function news_page() {
+    var news = $(".page-admin-news-list");
+    news.find(".news-table .remove-button").click(function () {
+        var btn = $(this);
+        btn.attr('disabled', 'disabled');
+        var id = btn.data('id');
+        $.ajax({
+            type: "DELETE",
+            url: "/admin/news/rest/" + id,
+        }).done(function (data) {
+            toastr.success(data.message, data.result.message, { timeOut: 3000 });
+            $(".news-" + id).fadeOut();
+        }).fail(function (err) {
+            console.log(err);
+            toastr.error('error on submiting, please check console log !', 'error !', { timeOut: 3000 });
+        }).always(function () {
+            btn.removeAttr('disabled');
+        });
+    });
+    news.find(".new-news button").click(function () {
+        var data = {
+            "title": news.find("input[name='title']").val(),
+            "content": simplemde.value(),
+        }
+        var btn = $(this);
+        btn.attr('disabled', 'disabled');
+
+        $.ajax({
+            type: "POST",
+            url: "/admin/news/rest/",
+            data: JSON.stringify(data)
+        }).done(function (data) {
+            toastr.success(data.message, data.result.message, { timeOut: 3000 });
+            location.reload();
+        }).fail(function (err) {
+            console.log(err);
+            toastr.error('error on submiting, please check console log !', 'error !', { timeOut: 3000 });
+        }).always(function () {
+            btn.removeAttr('disabled');
+        });
+    });
+}
 
 function members_page() {
     var members = $(".page-admin-members");
@@ -39,7 +112,7 @@ function members_page() {
             "socialmedialink": members.find("input[name='socialmedialink']").val(),
             "socialmediatype": members.find("select[name='socialmediatype']").val(),
             "rule": members.find("input[name='rule']").val(),
-        }        
+        }
         var btn = $(this);
         btn.attr('disabled', 'disabled');
 
@@ -92,7 +165,7 @@ function administrators_page() {
             data: JSON.stringify(data)
         }).done(function (data) {
             toastr.success(data.message, data.result.message, { timeOut: 3000 });
-            location.reload();                        
+            location.reload();
         }).fail(function (err) {
             console.log(err);
             toastr.error('error on submiting, please check console log !', 'error !', { timeOut: 3000 });

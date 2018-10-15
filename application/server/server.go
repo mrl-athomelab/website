@@ -97,6 +97,19 @@ func Prepare(configFile string) (s *Server, err error) {
 				rest.DELETE("/:id", s.adminMembersRestDeleteHandler)
 			}
 		}
+
+		news := admin.Group("/news", s.adminAuthMiddleware())
+		{
+			news.GET("/", s.adminNewsGetHandler)
+			news.GET("/edit/:id", s.adminNewsEditGetHandler)
+
+			rest := news.Group("/rest")
+			{
+				rest.POST("/", s.adminNewsRestPostHandler)
+				rest.PUT("/:id", s.adminNewsRestPutHandler)
+				rest.DELETE("/:id", s.adminNewsRestDeleteHandler)
+			}
+		}
 	}
 
 	s.router = engine
